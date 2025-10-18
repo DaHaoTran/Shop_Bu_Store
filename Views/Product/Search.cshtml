@@ -1,0 +1,86 @@
+﻿@model IEnumerable<ShopBuStore.Models.Product>
+@using ShopBuStore.Utility;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string str = string.Empty;
+}
+
+<h1>Index</h1>
+
+<div class="row">
+    <p class="col-lg-5">
+        <a asp-action="Create">Create New</a>
+    </p>
+    <div class="col-lg-7">
+        <form asp-action="Search" asp-controller="Product" asp-route-str="@str">
+            <div class="input-group">
+                <input class="form-control" placeholder="Input product name" asp-for="@str" required />
+                <input class="btn btn-dark" value="Tìm kiếm" type="submit" />
+            </div>
+        </form>
+    </div>
+</div>
+<a asp-controller="Product" asp-action="Index">Default</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sold)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PreviousPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model.Count() <= 0)
+        {
+            <tr>
+                <td><h5>Not Found</h5></td>
+            </tr>
+        } 
+        @foreach (var item in Model.Take(10)) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sold)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PreviousPrice)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ProductId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ProductId }) |
+                @Html.ActionLink("Change image", "ImageChanging", new { id = item.ProductId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

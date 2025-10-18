@@ -1,0 +1,42 @@
+﻿@model ShopBuStore.Models.Product
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="ImageChanging">
+            <div class="form-group">
+                <label asp-for="UploadFile" class="control-label"></label>
+                <input type="file" asp-for="UploadFile" class="form-control" accept="image/png" />
+                <span asp-validation-for="UploadFile" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <input type="hidden" asp-for="ProductId" />
+                <input type="hidden" asp-for="UserEmail" />
+                <input type="hidden" asp-for="ProductName" />
+                <input type="hidden" asp-for="Quantity" />
+                <input type="hidden" asp-for="CurrentPrice" />
+                <input type="hidden" asp-for="PreviousPrice" />
+                <input type="hidden" asp-for="Comments" />
+                <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

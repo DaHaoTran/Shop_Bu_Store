@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ShopBuStore.Models.Product>
+@using ShopBuStore.Utility;
+
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Dashboard</h1>
+
+<h4 class="mt-5">Bests</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                Progress
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PreviousPrice)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Take(5))
+        {
+            int total = item.Quantity + (int)item.Sold!;
+            int left = total > 0 ? (int)(((double)item.Sold! / total) * 100) : 0;
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @switch(left)
+                    {
+                        case <= 25:
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="@left" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar bg-danger" style="width: @(left)%;">@(left)%</div>
+                            </div>
+                            break;
+                        case <= 75:
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="@left" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar bg-info" style="width: @(left)%;">@(left)%</div>
+                            </div>
+                            break;
+                        default:
+                            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="@left" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar bg-success" style="width: @(left)%;">@(left)%</div>
+                            </div>
+                            break;
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PreviousPrice)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
