@@ -21,3 +21,7 @@ It is an intermediary sales website where users can post and purchase products.
 > npx json-server data/db.json
 - Cmd 2:
 > npm run dev
+## Demos
+### Local Demo
+https://github.com/user-attachments/assets/912c81e9-0ff7-46a8-96b8-14bf822f685f
+
